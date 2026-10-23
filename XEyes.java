@@ -82,6 +82,7 @@ public class XEyes extends JPanel implements MouseListener, MouseMotionListener{
         eye_1.movePupil(event.getX(), event.getY());
         eye_2.movePupil(event.getX(), event.getY());
 
+        
 
         repaint();
     }

@@ -38,7 +38,15 @@ public class Eye {
      
     }
 
-    
+    public double square(int x){
+        return x * x;
+    }
+
+    public boolean inEye (int mouseX, int mouseY) {
+        double dist = square(mouseX - eyeCenterX) / square(eyeWidth/2-pupilRadius) 
+                 + square(mouseY - eyeCenterY) / square(eyeHeight/2-pupilRadius);
+        return (dist <= 1);}
+
     public void draw (Graphics g) {
         
         g.setColor(Color.black);
@@ -77,7 +85,12 @@ public class Eye {
             } else {
                 pupilY = (int) (eyeCenterY + vertDist);
             }
-        } else {
+        } else if (inEye(clickX, clickY) == true) {
+            pupilX = clickX;
+            pupilY = clickY;
+        }
+        
+        else {
             // this is for all other clicks.  We use doubles for more precision.
             // remember, slope will be positive if the click was in the upper right or lower left
             // of the eye center, or negative otherwise.
@@ -87,7 +100,9 @@ public class Eye {
             pupilX = (int) precisePupilX;
             // findY will calculate the vertical posiiton of the pupil, at most vertDist away from eye center 
             pupilY = (int) findY(precisePupilX, slope);
-        }
+        }    
+
+//269, 290, 49, 37
     }
     
     // findX calculates the new horizonal position of the pupil, at most horDist away from eye center
